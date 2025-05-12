@@ -80,18 +80,19 @@ void numberGame() {
 
 // ----------FUNCTIONS----------
 
-void mainMenu() { //starting screen + display highscore
+void mainMenu() { //starting screen + display highscore + waits for input to begin
   lcd.clear();
   lcd.print("Press to Start");
   lcd.setCursor(0, 1);
   lcd.print("Record:");
   lcd.print(highscore);
   while (digitalRead(buttonPin1) == HIGH && digitalRead(buttonPin2) == HIGH) {} //waits on this screen until input is received
-  delay(200);
+  delay(200); //This line gives the circuit 200 ms to settle before continuing, ensuring only one button press is registered.
+
 }
 
 void generateSequence() { // generates random 7 digit sequence
-  digit1 = random(0, 10);
+  digit1 = random(0, 10); //generates integers from: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 + min (inclusive) to max (exclusive)
   digit2 = random(0, 10);
   digit3 = random(0, 10);
   digit4 = random(0, 10);
@@ -100,11 +101,11 @@ void generateSequence() { // generates random 7 digit sequence
   digit7 = random(0, 10);
 }
 
-void displaySequence() { //displays generated sequence
+void displaySequence() { //displays generated sequence on the LCD
   lcd.clear();
-  lcd.print("Remember:");
+  lcd.print("Remember:"); // writes the text "Remember:" on the first line of the LCD.
   delay(1000);
-  lcd.setCursor(0, 1);
+  lcd.setCursor(0, 1); //sets the cursor position on the LCD screen +  ensures that anything printed next (like the 7-digit number) appears neatly on the second line of the display, under the "Remember:" label.
   lcd.print(digit1);
   lcd.print(digit2);
   lcd.print(digit3);
@@ -114,13 +115,14 @@ void displaySequence() { //displays generated sequence
   lcd.print(digit7);
 }
 
-void increaseDifficulty() {  
-  delay(displayTime); 
-  Serial.println(displayTime); //doesnt have to be here, its just to see how fast the display time gets throughout the game
+void increaseDifficulty() {  //reducing display time per round
+  delay(displayTime); //Time for player to memorize sequence
+  Serial.println(displayTime); //doesnt have to be here, its just to see how fast the display time gets throughout the game + Serial.println(displayTime); // Prints the current display time to the Serial Monitor for debugging. Helps to track how the game's difficulty changes after each correct answer
+
 }
 
-void checkTheKey() { 
-  int key = random(0, 10); //generates random KEY
+void checkTheKey() { //Chooses a random digit (key) and checks if it's in the sequence
+  int key = random(0, 10); //generates random KEY/ digit between 0-9
   lcd.clear();
   lcd.print("Digit: ");
   lcd.setCursor(0, 1);
@@ -130,12 +132,12 @@ void checkTheKey() {
   correct = (key == digit1 || key == digit2 || key == digit3 ||key == digit4 || key == digit5 || key == digit6 || key == digit7);
 }
 
-void checkPlayerInput() {
+void checkPlayerInput() { 
   while (true) { //waits indefinitely until a button is pressed
-    if (digitalRead(buttonPin1) == LOW) { // the button is a pull up
+    if (digitalRead(buttonPin1) == LOW) { // the button is a pull up + // "IN" button
       pressed1 = true; 
       break; //breaks while
-    } else if (digitalRead(buttonPin2) == LOW) {
+    } else if (digitalRead(buttonPin2) == LOW) { // "OUT" button
       pressed2 = true;
       break; //breaks while
     }
@@ -145,10 +147,11 @@ void checkPlayerInput() {
 void playerRight() { //if player is right
   playerscore++; //adds to score (+1)
   
-  if (displayTime > 400) { //decreases display time by 100ms for each right answer to increase difficulty throughout the game, caps at 400ms
+  if (displayTime > 400) { //decreases display time by 100ms for each right answer to increase difficulty throughout the game, caps at 400ms + Speeds up the game by reducing display time, minimum 400ms
     displayTime -= 100;
   }
 
+ // Component Feedback: green LED and message
   lcd.clear();
   digitalWrite(green, HIGH); //LED lights green
   lcd.print("Correct!"); 
@@ -164,7 +167,7 @@ void playerWrong() { //if player is wrong
   lcd.setCursor(0, 1);
   lcd.print("Score: ");
   lcd.print(playerscore); //displays your score
-  delay(1500);
+  delay(1500); // Pauses for 1500ms to allow the player to read the "Wrong!" message and their score before the screen changes
   digitalWrite(red, LOW);
 
   if (playerscore > highscore) { //checks if the current playerscore beat the previous highscore, and replaces it if necessary
