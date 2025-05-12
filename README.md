@@ -11,15 +11,17 @@ A fast-paced memory game for Arduino in which players must remember a seven-digi
 
 ---
 
-## ✨ Features
+## ✨ Features 
+
 | ✓ | Description |
 |---|-------------|
 | **7-digit sequence challenge** | Displays a random 7-digit number the player must memorize. |
 | **Binary decision buttons** | Player chooses if a digit was part of the sequence using “IN” or “OUT” buttons. |
 | **Dynamic difficulty** | Display time decreases by 100ms after each correct round (minimum 400ms). |
-| **Visual & audio feedback** | Green LED signals correct input; red LED and buzzer indicate incorrect input. |
+| **Single RGB LED feedback** | One RGB LED module lights **green** for correct answers and **red** for incorrect ones. |
+| **Sound alert** | A passive buzzer sounds twice for wrong answers using `tone()`. |
 | **Score tracking** | LCD shows current score and stores the session's high score. |
-| **Minimal components** | Only uses Arduino Uno, 16x2 LCD, two pushbuttons, buzzer, and RGB LED. |
+| **Module-based simplicity** | Uses plug-and-play modules (LCD, buttons, buzzer, RGB LED) to simplify wiring—no resistors needed. |
 | **GNU-licensed** | Open-source under GNU GPL, with code, Tinkercad schematic, and documentation included. |
 
 ---
@@ -29,11 +31,10 @@ A fast-paced memory game for Arduino in which players must remember a seven-digi
 | Qty | Part | Notes |
 |-----|------|-------|
 | 1 | **Arduino Uno** | Core controller for the game logic. |
-| 1 | **16x2 LCD (HD44780)** | For displaying the sequence, key, messages, and scores. |
-| 1 | **Active piezo buzzer** | + → D5, − → GND. Emits sound on wrong input. |
-| 1 | **Common cathode RGB LED** | **Green (→ D6)**, **Red (→ D2)**, cathode → GND. anode → VCC. |
-| 2 | **Momentary push-buttons** | One for “IN” (D3), one for “OUT” (D4). Each connected to GND and VCC. |
-| 1 | **820 Ω resistor** | Connected to LCD V0 for fixed contrast control. |
+| 1 | **16x2 LCD (HD44780) Module** | Includes header pins; V0 (contrast) connected through an **820 Ω** resistor to GND. |
+| 1 | **Passive buzzer module** | Connected to D5. Requires `tone()` function for sound generation. |
+| 1 | **RGB LED module** (common cathode) | Red → D2, Green → D6. Built-in resistors—no external resistors required. |
+| 2 | **Push button modules** | One for “IN” (D3), one for “OUT” (D4). Connected with `INPUT_PULLUP` logic. |
 | — | **Jumper wires & breadboard** | Standard half-size breadboard is sufficient. |
 
 ---
