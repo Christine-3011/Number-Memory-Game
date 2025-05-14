@@ -6,7 +6,7 @@ This document describes a Project-Based Learning (PBL) activity for the Introduc
 A fast-paced memory game for Arduino in which players must remember a seven-digit sequence and determine whether a "KEY" was included. "IN" is indicated by one button and "OUT" by the other.  For the right answer, a green LED and the words "Correct!" appeared.  For incorrect answers, a red LED will illuminate and the buzzer will sound twice, displaying "Wrong!"  The twist?  Every round gets faster!
 
 <p align="center">
-  <img src="docs/Circuit Diagram.png" width="480" alt="Number Memory Game">
+  <img src="docs/Circuit Diagram2.png" width="480" alt="Number Memory Game">
 </p>
 
 
