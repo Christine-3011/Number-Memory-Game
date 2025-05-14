@@ -45,6 +45,6 @@ A fast-paced memory game for Arduino in which players must remember a seven-digi
 ## 🔌 Circuit
 
 <p align="center">
-  <img src="docs/Project Diagram.png" width="600" alt="Fritzing schematic">
+  <img src="docs/Circuit Diagram2.png" width="600" alt="Tinkercad schematic">
 </p>
 
